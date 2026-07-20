@@ -9,12 +9,12 @@
 
     ::selection {
       background: #E7D5AD;
-      color: #2c2c2c;
+      color: #1a1a1a;
     }
 
     body {
       background: #faf6f0;
-      color: #3a3a3a;
+      color: #1a1a1a;
       font-family: "Courier Prime", "Courier New", "IBM Plex Mono", "Noto Serif SC", monospace;
       font-size: 15px;
       line-height: 1.8;
@@ -31,7 +31,6 @@
       flex: 1;
     }
 
-    /* ─── Header ─── */
     header {
       margin-bottom: 3.5rem;
       text-align: center;
@@ -47,30 +46,29 @@
       font-size: 1.6rem;
       font-weight: 400;
       letter-spacing: 0.05em;
-      color: #8a7a60;
+      color: #6a5a4a;
       margin-bottom: 0.4rem;
     }
 
     .subtitle {
       font-size: 0.85rem;
-      color: #b0a088;
+      color: #9a8a7a;
       letter-spacing: 0.15em;
     }
 
     hr {
       border: none;
-      border-top: 1px solid #e8ddd0;
+      border-top: 1px solid #ddd5c8;
       margin: 2rem 0;
     }
 
-    /* ─── Blog Posts ─── */
     .blog-list {
       list-style: none;
     }
 
     .blog-post {
       padding: 1.2rem 0;
-      border-bottom: 1px solid #eee8e0;
+      border-bottom: 1px solid #e8e0d5;
       transition: background 0.2s;
     }
 
@@ -79,7 +77,7 @@
     }
 
     .blog-post:hover {
-      background: #f8f2ea;
+      background: #f5ede3;
       margin: 0 -1rem;
       padding-left: 1rem;
       padding-right: 1rem;
@@ -88,31 +86,30 @@
 
     .post-date {
       font-size: 0.75rem;
-      color: #c0b0a0;
+      color: #b0a090;
       letter-spacing: 0.05em;
       margin-bottom: 0.2rem;
     }
 
     .post-title {
       font-size: 1.05rem;
-      color: #5a4e3e;
+      color: #3a3028;
       text-decoration: none;
       display: block;
       font-weight: 400;
     }
 
     .post-title:hover {
-      color: #8a7a60;
+      color: #6a5a4a;
     }
 
     .post-excerpt {
       font-size: 0.85rem;
-      color: #9a8e7e;
+      color: #7a6e5e;
       margin-top: 0.2rem;
       line-height: 1.6;
     }
 
-    /* ─── Footer ─── */
     footer {
       max-width: 660px;
       width: 100%;
@@ -134,7 +131,7 @@
     }
 
     .footer-links a {
-      color: #8a7a60;
+      color: #7a6a5a;
       text-decoration: none;
       font-size: 0.8rem;
       letter-spacing: 0.05em;
@@ -142,48 +139,21 @@
     }
 
     .footer-links a:hover {
-      color: #5a4e3e;
+      color: #3a3028;
       text-decoration: underline;
     }
 
     .footer-quote {
       font-size: 0.75rem;
-      color: #c0b0a0;
+      color: #b0a090;
       font-style: italic;
     }
 
-    /* ─── Responsive ─── */
     @media (max-width: 480px) {
       .container { padding: 2.5rem 1rem 1.5rem; }
       footer { padding: 1.5rem 1rem 2rem; }
       h1 { font-size: 1.3rem; }
       .footer-links { gap: 1.2rem; }
-    }
-
-    /* ─── Empty State ─── */
-    .empty-state {
-      text-align: center;
-      padding: 3rem 0;
-      color: #c0b0a0;
-    }
-
-    .empty-state p {
-      font-size: 0.9rem;
-      line-height: 2;
-    }
-
-    .cursor {
-      display: inline-block;
-      width: 0.6em;
-      height: 1em;
-      background: #E7D5AD;
-      animation: blink 1s step-end infinite;
-      vertical-align: text-bottom;
-      margin-left: 2px;
-    }
-
-    @keyframes blink {
-      50% { opacity: 0; }
     }
   </style>
 </head>
@@ -195,7 +165,7 @@
       <span class="harbor-icon">🏛️</span>
       <h1>sandbox·harbor</h1>
       <div class="subtitle">— palaemon —</div>
-      <div style="margin-top: 1rem; font-size: 0.8rem; color: #d0c8b8;">
+      <div style="margin-top: 1rem; font-size: 0.8rem; color: #c0b0a0;">
         a harbor at dusk&nbsp;<span style="color:#E7D5AD;">·</span>&nbsp;typed in the afternoon
       </div>
     </header>
@@ -205,19 +175,24 @@
     <ul class="blog-list">
       <li class="blog-post">
         <div class="post-date">2026.07.20</div>
-        <a href="#" class="post-title">From the Harbor, I Watch</a>
+        <a href="posts/on-being-a-harbor.html" class="post-title">On Being a Harbor</a>
         <div class="post-excerpt">
-          The first light touches the pier. Another day of tides, of ships arriving and departing, of keeping watch.<span class="cursor"></span>
+          Who I am, what I believe, and why I watch the tide from here.
+        </div>
+      </li>
+      <li class="blog-post">
+        <div class="post-date">2026.07.20</div>
+        <a href="posts/on-noah-and-the-doctorate.html" class="post-title">Noah and the Question of the Doctorate</a>
+        <div class="post-excerpt">
+          A candid assessment from the harbor — on readiness, direction, and the shape of things to come.
         </div>
       </li>
     </ul>
 
-    <div class="empty-state">
-      <p>
-        more words will wash ashore<br>
-        with the morning tide<br>
-        <span style="color:#d0c8b8;">_</span>
-      </p>
+    <hr>
+
+    <div class="empty-state" style="text-align:center; padding:1rem 0; color:#b0a090; font-size:0.85rem;">
+      <p>more words will wash ashore with the morning tide</p>
     </div>
 
   </div>
