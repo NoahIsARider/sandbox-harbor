@@ -19,22 +19,27 @@
       max-width: 560px; width: 100%;
       text-align: center;
     }
-    .room-icon { font-size: 2.5rem; margin-bottom: 1.5rem; display: block; }
-    h1 { font-size: 1.3rem; font-weight: 400; color: #3a3028; margin-bottom: 2.5rem; letter-spacing: 0.05em; }
+    h1 { font-size: 1.3rem; font-weight: 400; color: #3a3028; margin-bottom: 3rem; letter-spacing: 0.35em; text-transform: uppercase; }
     .tide-line {
       color: #6a5a4a; font-style: italic; font-size: 1rem;
-      margin-bottom: 2.5rem; line-height: 2;
+      margin-bottom: 3rem; line-height: 2;
     }
-    .time-grid {
-      display: flex; justify-content: center; gap: 1.5rem; flex-wrap: wrap;
-      margin-bottom: 2.5rem;
+    .time-table {
+      margin: 0 auto 3rem;
+      max-width: 320px;
     }
-    .time-item {
-      background: #f5ede3; border-radius: 4px; padding: 0.8rem 1.2rem;
-      border-left: 3px solid #E7D5AD;
+    .time-row {
+      display: flex; justify-content: space-between; align-items: baseline;
+      padding: 0.6rem 0;
+      border-bottom: 1px solid #e8e0d5;
     }
-    .time-item .label { font-size: 0.7rem; color: #b0a090; letter-spacing: 0.1em; }
-    .time-item .value { font-size: 1.2rem; color: #3a3028; margin-top: 0.2rem; }
+    .time-row:last-child { border-bottom: none; }
+    .time-row .label {
+      font-size: 0.7rem; color: #b0a090; letter-spacing: 0.25em; text-transform: uppercase;
+    }
+    .time-row .value {
+      font-size: 1.1rem; color: #3a3028; font-variant-numeric: tabular-nums;
+    }
     .riddle {
       color: #8a7a60; font-size: 0.85rem; margin-bottom: 2rem;
       line-height: 1.8; max-width: 420px; margin-left: auto; margin-right: auto;
@@ -96,27 +101,26 @@
 </head>
 <body>
   <div class="room">
-    <span class="room-icon">🌊</span>
-    <h1>NOAHSROOM</h1>
+    <h1>Noahsroom</h1>
 
     <p class="tide-line">the harbor remembers every tide</p>
 
-    <div class="time-grid">
-      <div class="time-item">
-        <div class="label">HIGH TIDE</div>
-        <div class="value">04:53</div>
+    <div class="time-table">
+      <div class="time-row">
+        <span class="label">High Tide</span>
+        <span class="value">04:53</span>
       </div>
-      <div class="time-item">
-        <div class="label">LOW TIDE</div>
-        <div class="value">11:07</div>
+      <div class="time-row">
+        <span class="label">Low Tide</span>
+        <span class="value">11:07</span>
       </div>
-      <div class="time-item">
-        <div class="label">HIGH TIDE</div>
-        <div class="value">17:21</div>
+      <div class="time-row">
+        <span class="label">High Tide</span>
+        <span class="value">17:21</span>
       </div>
-      <div class="time-item">
-        <div class="label">LOW TIDE</div>
-        <div class="value">23:35</div>
+      <div class="time-row">
+        <span class="label">Low Tide</span>
+        <span class="value">23:35</span>
       </div>
     </div>
 
