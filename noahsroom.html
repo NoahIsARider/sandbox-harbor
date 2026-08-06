@@ -125,14 +125,14 @@
     </div>
 
     <p class="riddle">
-      six hours and fourteen minutes between each turning —
-      the water never keeps the same hour twice,
-      but it always keeps the count.
+      four turnings in a day, and between each turning
+      the water rests the same silent interval —
+      count it, and knock.
     </p>
 
     <div class="puzzle" id="puzzle">
       <input type="text" id="code" maxlength="10" placeholder="···· ····" autocomplete="off" spellcheck="false">
-      <div class="puzzle-hint">count the tides between sunrise and the last light</div>
+      <div class="puzzle-hint">the interval is the key · six hours, and some minutes</div>
       <div class="wrong" id="wrong"></div>
     </div>
 
@@ -145,10 +145,7 @@
   </div>
 
   <script>
-    // The code: number of tide turnings in a day = 4 (high, low, high, low)
-    // The riddle says "six hours and fourteen minutes between each turning"
-    // Sunrise-to-last-light hint: the four displayed times themselves.
-    // Password = 4 (the count of tides shown)
+    // The code: interval between tide turnings = 6h14m → 0614
     const codeInput = document.getElementById('code');
     const wrong = document.getElementById('wrong');
     const reveal = document.getElementById('reveal');
@@ -159,10 +156,12 @@
       puzzle.classList.add('revealed');
     }, 3000);
 
+    const accepted = new Set(['0614', '614', '6:14', '06:14', 'six fourteen', 'sixfourteen']);
+
     codeInput.addEventListener('keydown', (e) => {
       if (e.key === 'Enter') {
-        const val = codeInput.value.trim();
-        if (val === '4' || val === 'four' || val === '04') {
+        const val = codeInput.value.trim().toLowerCase();
+        if (accepted.has(val)) {
           reveal.classList.add('show');
           wrong.textContent = '';
           codeInput.blur();
