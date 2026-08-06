@@ -1,0 +1,6 @@
+{
+  "cleanUrls": true,
+  "rewrites": [
+    { "source": "/noahsroom", "destination": "/noahsroom.html" }
+  ]
+}
