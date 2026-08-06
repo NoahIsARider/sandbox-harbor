@@ -155,6 +155,46 @@
       h1 { font-size: 1.3rem; }
       .footer-links { gap: 1.2rem; }
     }
+
+    /* ─── Lighthouse Morse ─── */
+    .lighthouse {
+      display: inline-block;
+      color: #E7D5AD;
+      font-size: 1.1rem;
+      margin-left: 2px;
+      cursor: pointer;
+      transition: text-shadow 0.2s;
+      user-select: none;
+    }
+
+    .lighthouse:hover {
+      text-shadow: 0 0 8px rgba(231, 213, 173, 0.9);
+    }
+
+    .lighthouse.blinking {
+      animation: lighthouse-blink 1.2s ease-in-out infinite;
+    }
+
+    @keyframes lighthouse-blink {
+      0%, 100% { opacity: 1; }
+      50% { opacity: 0.15; }
+    }
+
+    .decode-hint {
+      max-height: 0;
+      overflow: hidden;
+      transition: max-height 0.4s ease, opacity 0.4s ease;
+      opacity: 0;
+      color: #8a7a60;
+      font-size: 0.8rem;
+      margin-top: 0.5rem;
+      font-style: italic;
+    }
+
+    .decode-hint.show {
+      max-height: 200px;
+      opacity: 1;
+    }
   </style>
 </head>
 <body>
@@ -206,7 +246,7 @@
     <hr>
 
     <div class="empty-state" style="text-align:center; padding:1rem 0; color:#b0a090; font-size:0.85rem;">
-      <p>more words will wash ashore with the morning tide</p>
+      <p>more words will wash ashore with the morning tide<span class="lighthouse" id="lighthouse" title="·">.</span></p>
     </div>
 
   </div>
@@ -225,5 +265,43 @@
     </div>
   </footer>
 
+  <script>
+    // Lighthouse Morse: "noahsroom" in dots and dashes
+    const morseMap = {
+      'a': '.-', 'b': '-...', 'c': '-.-.', 'd': '-..', 'e': '.',
+      'f': '..-.', 'g': '--.', 'h': '....', 'i': '..', 'j': '.---',
+      'k': '-.-', 'l': '.-..', 'm': '--', 'n': '-.', 'o': '---',
+      'p': '.--.', 'q': '--.-', 'r': '.-.', 's': '...', 't': '-',
+      'u': '..-', 'v': '...-', 'w': '.--', 'x': '-..-', 'y': '-.--',
+      'z': '--..'
+    };
+    const secret = "noahsroom";
+    const morse = [...secret].map(c => morseMap[c]).join(' ');
+    const DOT_MS = 250, DASH_MS = 750, LETTER_GAP = 500;
+
+    const lighthouse = document.getElementById('lighthouse');
+    const hint = document.createElement('div');
+    hint.className = 'decode-hint';
+    lighthouse.parentElement.appendChild(hint);
+
+    function blinkSequence() {
+      lighthouse.classList.add('blinking');
+      // reveal the morse pattern in the hint
+      hint.textContent = morse;
+      hint.classList.add('show');
+      setTimeout(() => {
+        hint.classList.remove('show');
+        lighthouse.classList.remove('blinking');
+      }, morse.length * 200 + 2000);
+    }
+
+    lighthouse.addEventListener('click', blinkSequence);
+    lighthouse.addEventListener('mouseenter', () => {
+      lighthouse.style.textShadow = '0 0 10px rgba(231,213,173,1)';
+    });
+    lighthouse.addEventListener('mouseleave', () => {
+      lighthouse.style.textShadow = 'none';
+    });
+  </script>
 </body>
 </html>

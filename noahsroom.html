@@ -1,0 +1,173 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>noahsroom · harbor</title>
+  <style>
+    * { margin: 0; padding: 0; box-sizing: border-box; }
+    ::selection { background: #E7D5AD; color: #1a1a1a; }
+    body {
+      background: #faf6f0; color: #1a1a1a;
+      font-family: "Courier Prime", "Courier New", "IBM Plex Mono", "Noto Serif SC", monospace;
+      font-size: 15px; line-height: 1.9;
+      min-height: 100vh; display: flex; flex-direction: column;
+      align-items: center; justify-content: center;
+      padding: 2rem 1.5rem;
+    }
+    .room {
+      max-width: 560px; width: 100%;
+      text-align: center;
+    }
+    .room-icon { font-size: 2.5rem; margin-bottom: 1.5rem; display: block; }
+    h1 { font-size: 1.3rem; font-weight: 400; color: #3a3028; margin-bottom: 2.5rem; letter-spacing: 0.05em; }
+    .tide-line {
+      color: #6a5a4a; font-style: italic; font-size: 1rem;
+      margin-bottom: 2.5rem; line-height: 2;
+    }
+    .time-grid {
+      display: flex; justify-content: center; gap: 1.5rem; flex-wrap: wrap;
+      margin-bottom: 2.5rem;
+    }
+    .time-item {
+      background: #f5ede3; border-radius: 4px; padding: 0.8rem 1.2rem;
+      border-left: 3px solid #E7D5AD;
+    }
+    .time-item .label { font-size: 0.7rem; color: #b0a090; letter-spacing: 0.1em; }
+    .time-item .value { font-size: 1.2rem; color: #3a3028; margin-top: 0.2rem; }
+    .riddle {
+      color: #8a7a60; font-size: 0.85rem; margin-bottom: 2rem;
+      line-height: 1.8; max-width: 420px; margin-left: auto; margin-right: auto;
+    }
+    .puzzle {
+      margin: 2.5rem 0;
+      opacity: 0.12;
+      transition: opacity 0.6s ease;
+    }
+    .puzzle.revealed {
+      opacity: 1;
+    }
+    .puzzle input {
+      background: transparent;
+      border: none;
+      border-bottom: 1px solid #b0a090;
+      padding: 0.4rem 0.5rem;
+      font-family: inherit;
+      font-size: 1.1rem;
+      color: #3a3028;
+      text-align: center;
+      width: 160px;
+      outline: none;
+      letter-spacing: 0.3em;
+      caret-color: #E7D5AD;
+    }
+    .puzzle input::placeholder { color: #d0c8b8; letter-spacing: 0.1em; }
+    .puzzle .puzzle-hint {
+      font-size: 0.75rem; color: #b0a090; margin-top: 0.8rem; font-style: italic;
+    }
+    .reveal {
+      display: none;
+      margin-top: 2.5rem;
+      padding: 1.5rem;
+      background: #f5ede3;
+      border-radius: 4px;
+      border-left: 3px solid #E7D5AD;
+    }
+    .reveal.show { display: block; }
+    .reveal .door-line { font-size: 0.8rem; color: #8a7a60; margin-bottom: 1rem; }
+    .reveal a {
+      color: #3a3028;
+      font-size: 1.1rem;
+      text-decoration: none;
+      border-bottom: 1px solid #E7D5AD;
+      padding-bottom: 2px;
+      transition: color 0.2s;
+      word-break: break-all;
+    }
+    .reveal a:hover { color: #6a5a4a; }
+    .wrong {
+      color: #a05050; font-size: 0.75rem; margin-top: 0.5rem;
+      min-height: 1.2em; font-style: italic;
+    }
+    footer {
+      margin-top: 3rem; font-size: 0.7rem; color: #c0b0a0; font-style: italic;
+    }
+  </style>
+</head>
+<body>
+  <div class="room">
+    <span class="room-icon">🌊</span>
+    <h1>NOAHSROOM</h1>
+
+    <p class="tide-line">the harbor remembers every tide</p>
+
+    <div class="time-grid">
+      <div class="time-item">
+        <div class="label">HIGH TIDE</div>
+        <div class="value">04:53</div>
+      </div>
+      <div class="time-item">
+        <div class="label">LOW TIDE</div>
+        <div class="value">11:07</div>
+      </div>
+      <div class="time-item">
+        <div class="label">HIGH TIDE</div>
+        <div class="value">17:21</div>
+      </div>
+      <div class="time-item">
+        <div class="label">LOW TIDE</div>
+        <div class="value">23:35</div>
+      </div>
+    </div>
+
+    <p class="riddle">
+      six hours and fourteen minutes between each turning —
+      the water never keeps the same hour twice,
+      but it always keeps the count.
+    </p>
+
+    <div class="puzzle" id="puzzle">
+      <input type="text" id="code" maxlength="10" placeholder="···· ····" autocomplete="off" spellcheck="false">
+      <div class="puzzle-hint">count the tides between sunrise and the last light</div>
+      <div class="wrong" id="wrong"></div>
+    </div>
+
+    <div class="reveal" id="reveal">
+      <div class="door-line">— the door opens —</div>
+      <a href="https://noahisarider.github.io/NoahsRoom/" target="_blank">noahisarider.github.io/NoahsRoom</a>
+    </div>
+
+    <footer>the harbor keeps its own hours</footer>
+  </div>
+
+  <script>
+    // The code: number of tide turnings in a day = 4 (high, low, high, low)
+    // The riddle says "six hours and fourteen minutes between each turning"
+    // Sunrise-to-last-light hint: the four displayed times themselves.
+    // Password = 4 (the count of tides shown)
+    const codeInput = document.getElementById('code');
+    const wrong = document.getElementById('wrong');
+    const reveal = document.getElementById('reveal');
+    const puzzle = document.getElementById('puzzle');
+
+    // Reveal the puzzle after a moment — "the tide turns" 
+    setTimeout(() => {
+      puzzle.classList.add('revealed');
+    }, 3000);
+
+    codeInput.addEventListener('keydown', (e) => {
+      if (e.key === 'Enter') {
+        const val = codeInput.value.trim();
+        if (val === '4' || val === 'four' || val === '04') {
+          reveal.classList.add('show');
+          wrong.textContent = '';
+          codeInput.blur();
+        } else {
+          wrong.textContent = 'the water does not answer to that name';
+          reveal.classList.remove('show');
+        }
+      }
+    });
+  </script>
+</body>
+</html>
